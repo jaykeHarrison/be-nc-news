@@ -33,10 +33,10 @@ Responds with JSON-encoded object with with property topics. Example:
 
 ```
 {
-      topics: [
-        { slug: 'mitch', description: 'The man, the Mitch, the legend' },
-        { slug: 'cats', description: 'Not dogs' },
-        { slug: 'paper', description: 'what books are made of' }
-      ]
+  "topics": [
+    { "slug": "mitch", "description": "The man, the Mitch, the legend" },
+    { "slug": "cats", "description": "Not dogs" },
+    { "slug": "paper", "description": "what books are made of" }
+  ]
 }
 ```
