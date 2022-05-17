@@ -26,9 +26,10 @@ app.use((err, req, res, next) => {
   }
 });
 app.use((err, req, res, next) => {
-  console.log(err.code);
-  if (err.status === 404) {
-    res.status(404).send({ message: err.message });
+  const { status, message } = err;
+
+  if (status === 404 || status === 400) {
+    res.status(status).send({ message });
   } else {
     next(err);
   }

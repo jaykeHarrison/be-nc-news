@@ -14,7 +14,7 @@ describe("GET /api/topics", () => {
       .expect(200)
       .then((response) => {
         const topicsArr = response.body.topics;
-        console.log(topicsArr);
+
         expect(topicsArr).toHaveLength(3);
         topicsArr.forEach((topic) => {
           expect(topic).toEqual(
@@ -95,18 +95,42 @@ describe("PATCH /api/articles/:article_id", () => {
         });
       });
   });
-  test("400: responds with 'Bad Request' when given parameters of wrong format", () => {
-    const requestBody = {
-      inc_votes: 50,
-    };
+  describe("400: responds with 'Bad request'", () => {
+    test("when given parameters of wrong format", () => {
+      const requestBody = {
+        inc_votes: 50,
+      };
 
-    return request(app)
-      .patch("/api/articles/numberone")
-      .send(requestBody)
-      .expect(400)
-      .then(({ body: { message } }) => {
-        expect(message).toBe("Bad request");
-      });
+      return request(app)
+        .patch("/api/articles/numberone")
+        .send(requestBody)
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request");
+        });
+    });
+    test("when request body is empty", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send()
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request");
+        });
+    });
+    test("when request body is of wrong format", () => {
+      const requestBody = {
+        inc_votes: "apple",
+      };
+
+      return request(app)
+        .patch("/api/articles/1")
+        .send(requestBody)
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request");
+        });
+    });
   });
   test("404: responds with 'Article by that ID not found", () => {
     const requestBody = {
