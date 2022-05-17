@@ -72,3 +72,53 @@ describe("GET /api/articles/:article_id", () => {
       });
   });
 });
+
+describe.only("PATCH /api/articles/:article_id", () => {
+  test("201: responds with the updated article object", () => {
+    const requestBody = {
+      inc_votes: 50,
+    };
+
+    return request(app)
+      .patch("/api/articles/1")
+      .send(requestBody)
+      .expect(201)
+      .then(({ body: { updatedArticle } }) => {
+        expect(updatedArticle).toEqual({
+          article_id: 1,
+          author: "butter_bridge",
+          body: "I find this existence challenging",
+          created_at: "2020-07-09T20:11:00.000Z",
+          title: "Living in the shadow of a great man",
+          topic: "mitch",
+          votes: 150,
+        });
+      });
+  });
+  test("400: responds with 'Bad Request' when given parameters of wrong format", () => {
+    const requestBody = {
+      inc_votes: 50,
+    };
+
+    return request(app)
+      .patch("/api/articles/numberone")
+      .send(requestBody)
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
+      });
+  });
+  test("404: responds with 'Article by that ID not found", () => {
+    const requestBody = {
+      inc_votes: 50,
+    };
+
+    return request(app)
+      .patch("/api/articles/2342394")
+      .send(requestBody)
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Article by that ID not found");
+      });
+  });
+});
