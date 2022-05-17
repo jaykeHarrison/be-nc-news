@@ -3,6 +3,7 @@ const app = require("../app");
 const db = require("../db/connection.js");
 const seed = require("../db/seeds/seed");
 const testData = require("../db/data/test-data/index.js");
+require("jest-sorted");
 
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
@@ -36,6 +37,56 @@ describe("GET /api/topics", () => {
   });
 });
 
+describe("GET /api/articles", () => {
+  describe("200:", () => {
+    test("responds with array of article objects", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          expect(articles).toHaveLength(12);
+          articles.forEach((article) => {
+            expect(article).toEqual(
+              expect.objectContaining({
+                author: expect.any(String),
+                title: expect.any(String),
+                article_id: expect.any(Number),
+                topic: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+                comment_count: expect.any(Number),
+              })
+            );
+          });
+        });
+    });
+    test("comment_count is correct for all", () => {
+      const actualCommentCount = [11, 0, 2, 0, 2, 1, 0, 0, 2, 0, 0, 0];
+
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          articles.forEach((article) => {
+            const articleId = article.article_id;
+
+            expect(article.comment_count).toBe(
+              actualCommentCount[articleId - 1]
+            );
+          });
+        });
+    });
+    test("articles objects are ordered by date in decending order", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then(({ body: { articles } }) => {
+          console.log(articles);
+          expect(articles).toBeSortedBy("created_at", { descending: true });
+        });
+    });
+  });
+});
 describe("GET /api/articles/:article_id", () => {
   test("200: responds with article object", () => {
     return request(app)
@@ -161,7 +212,6 @@ describe("GET /api/users", () => {
       .get("/api/users")
       .expect(200)
       .then(({ body: { users } }) => {
-        console.log(users);
         expect(users).toHaveLength(4);
 
         users.forEach((user) => {
