@@ -16,6 +16,8 @@ These will automatically be ignored in the .gitignore file.
 ## Index
 
 1. [GET /api/topics](#1-get-apitopics)
+2. [GET /api/articles/:article_id](#2-get-apiarticlesarticleid)
+3. [PATCH /api/articles/:article_id](#2-get-apiarticlesarticleid)
 
 ## 1. GET /api/topics
 
@@ -27,7 +29,7 @@ Responds with an array of topic objects with slug and description properties
 
 200 - OK
 
-### Response
+### Response body
 
 Responds with JSON-encoded object with with property topics. Example:
 
@@ -41,7 +43,7 @@ Responds with JSON-encoded object with with property topics. Example:
 }
 ```
 
-## 2. Get /api/articles/:article_id
+## 2. GET /api/articles/:article_id
 
 ### Description
 
@@ -55,9 +57,9 @@ Responds with a JSON article object with author, title, article_id, body, topic,
 
 **:article_id** _Integer_: ID of the required article
 
-### Response
+### Response body
 
-Responds with JSON-encoded object with with property article whose value is the requested article object. Example:
+Responds with JSON-encoded object with with property **_*article*_**, whose value is the requested article object. Example:
 
 ```
 {
@@ -69,6 +71,50 @@ Responds with JSON-encoded object with with property article whose value is the 
     "body": "I find this existence challenging",
     "created_at": "2020-07-09T20:11:00.000Z",
     "votes": 100
+  }
+}
+```
+
+## 3. PATCH /api/articles/:article_id
+
+### Description
+
+Updates the specified article's votes by an incremenent passed in the request body. The updated article object is returned.
+
+### Status
+
+200 - OK
+
+### Parameters
+
+**:article_id** _Integer_: ID of the required article
+
+### Request body
+
+The request body should be a JSON object with a key **_inc_votes_** and value of an **integer** to increment. To decrement the votes, use a negative number.
+
+Example:
+
+```
+{
+  "inc_votes": 50
+}
+```
+
+### Response body
+
+Responds with JSON-encoded object with with property **_updatedArticle_**, whose value is the updated article object. Example:
+
+```
+{
+  "updatedArticle": {
+    "article_id": 1,
+    "author": "butter_bridge",
+    "body": "I find this existence challenging",
+    "created_at": "2020-07-09T20:11:00.000Z",
+    "title": "Living in the shadow of a great man",
+    "topic": "mitch",
+    "votes": 150
   }
 }
 ```
