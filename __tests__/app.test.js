@@ -95,7 +95,7 @@ describe("PATCH /api/articles/:article_id", () => {
         });
       });
   });
-  describe("400: responds with 'Bad request'", () => {
+  describe("400: responds with 'Bad request: request body of invalid format'", () => {
     test("when given parameters of wrong format", () => {
       const requestBody = {
         inc_votes: 50,
@@ -115,7 +115,7 @@ describe("PATCH /api/articles/:article_id", () => {
         .send()
         .expect(400)
         .then(({ body: { message } }) => {
-          expect(message).toBe("Bad request");
+          expect(message).toBe("Bad request: request body of invalid format");
         });
     });
     test("when request body is of wrong format", () => {
@@ -128,7 +128,7 @@ describe("PATCH /api/articles/:article_id", () => {
         .send(requestBody)
         .expect(400)
         .then(({ body: { message } }) => {
-          expect(message).toBe("Bad request");
+          expect(message).toBe("Bad request: request body of invalid format");
         });
     });
   });

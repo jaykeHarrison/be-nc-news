@@ -15,8 +15,11 @@ exports.fetchArticleById = (articleId) => {
 };
 
 exports.updateArticleById = (articleId, increaseVotesBy) => {
-  if (!increaseVotesBy) {
-    return Promise.reject({ status: 400, message: "Bad request" });
+  if (!increaseVotesBy || typeof increaseVotesBy !== "number") {
+    return Promise.reject({
+      status: 400,
+      message: "Bad request: request body of invalid format",
+    });
   }
 
   return db
