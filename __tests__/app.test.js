@@ -73,7 +73,7 @@ describe("GET /api/articles/:article_id", () => {
   });
 });
 
-describe.only("PATCH /api/articles/:article_id", () => {
+describe("PATCH /api/articles/:article_id", () => {
   test("201: responds with the updated article object", () => {
     const requestBody = {
       inc_votes: 50,
