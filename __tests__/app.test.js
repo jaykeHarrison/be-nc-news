@@ -41,18 +41,26 @@ describe("GET /api/articles/:article_id", () => {
     return request(app)
       .get("/api/articles/1")
       .expect(200)
-      .then((response) => {
-        const article = response.body.article;
-
-        expect(article).toEqual({
-          article_id: 1,
-          author: "butter_bridge",
-          body: "I find this existence challenging",
-          created_at: "2020-07-09T20:11:00.000Z",
-          title: "Living in the shadow of a great man",
-          topic: "mitch",
-          votes: 100,
-        });
+      .then(({ body: { article } }) => {
+        expect(article).toEqual(
+          expect.objectContaining({
+            article_id: 1,
+            author: "butter_bridge",
+            body: "I find this existence challenging",
+            created_at: "2020-07-09T20:11:00.000Z",
+            title: "Living in the shadow of a great man",
+            topic: "mitch",
+            votes: 100,
+          })
+        );
+      });
+  });
+  test("200: responds with article object with comment count", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body: { article } }) => {
+        expect(article.comment_count).toBe(11);
       });
   });
   test("404: response with 'Article by that ID not found'", () => {
