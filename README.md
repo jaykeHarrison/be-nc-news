@@ -16,9 +16,10 @@ These will automatically be ignored in the .gitignore file.
 ## Index
 
 1. [GET /api/topics](#1-get-apitopics)
-2. [GET /api/articles/:article_id](#2-get-apiarticlesarticleid)
-3. [PATCH /api/articles/:article_id](#3-patch-apiarticlesarticleid)
-4. [GET /api/users](#4-get-apiusers)
+2. [GET /api/articles](#2-get-apiarticles)
+3. [GET /api/articles/:article_id](#3-get-apiarticlesarticleid)
+4. [PATCH /api/articles/:article_id](#4-patch-apiarticlesarticleid)
+5. [GET /api/users](#5-get-apiusers)
 
 ## 1. GET /api/topics
 
@@ -44,7 +45,39 @@ Responds with JSON-encoded object with with property **_topics_**, whose value i
 }
 ```
 
-## 2. GET /api/articles/:article_id
+## 2. GET /api/articles
+
+### Description
+
+Responds with an array of article objects, default sorted by created_at in descending order.
+
+### Status
+
+200 - OK
+
+### Response body
+
+Responds with JSON-encoded object with with property **_*articles*_**, whose value is the requested articles objects. Example:
+
+```
+{
+  "articles": [
+    {
+      "article_id": 3,
+      "title": "Eight pug gifs that remind me of mitch",
+      "topic": "mitch",
+      "author": "icellusedkars",
+      "body": "some gifs",
+      "created_at": "2020-11-03T09:12:00.000Z",
+      "votes": 0,
+      "comment_count": 2
+    },
+    // more user objects
+  ]
+}
+```
+
+## 3. GET /api/articles/:article_id
 
 ### Description
 
@@ -77,7 +110,7 @@ Responds with JSON-encoded object with with property **_*article*_**, whose valu
 }
 ```
 
-## 3. PATCH /api/articles/:article_id
+## 4. PATCH /api/articles/:article_id
 
 ### Description
 
@@ -121,7 +154,7 @@ Responds with JSON-encoded object with with property **_updatedArticle_**, whose
 }
 ```
 
-## 4. GET /api/users
+## 5. GET /api/users
 
 ### Description
 
