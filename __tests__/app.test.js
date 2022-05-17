@@ -14,7 +14,7 @@ describe("GET /api/topics", () => {
       .expect(200)
       .then((response) => {
         const topicsArr = response.body.topics;
-        console.log(topicsArr);
+
         expect(topicsArr).toHaveLength(3);
         topicsArr.forEach((topic) => {
           expect(topic).toEqual(
@@ -69,6 +69,80 @@ describe("GET /api/articles/:article_id", () => {
       .expect(400)
       .then((response) => {
         expect(response.body.message).toBe("Bad request");
+      });
+  });
+});
+
+describe("PATCH /api/articles/:article_id", () => {
+  test("200: responds with the updated article object", () => {
+    const requestBody = {
+      inc_votes: 50,
+    };
+
+    return request(app)
+      .patch("/api/articles/1")
+      .send(requestBody)
+      .expect(200)
+      .then(({ body: { updatedArticle } }) => {
+        expect(updatedArticle).toEqual({
+          article_id: 1,
+          author: "butter_bridge",
+          body: "I find this existence challenging",
+          created_at: "2020-07-09T20:11:00.000Z",
+          title: "Living in the shadow of a great man",
+          topic: "mitch",
+          votes: 150,
+        });
+      });
+  });
+  describe("400: responds with 'Bad request: request body of invalid format'", () => {
+    test("when given parameters of wrong format", () => {
+      const requestBody = {
+        inc_votes: 50,
+      };
+
+      return request(app)
+        .patch("/api/articles/numberone")
+        .send(requestBody)
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request");
+        });
+    });
+    test("when request body is empty", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send()
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request: request body of invalid format");
+        });
+    });
+    test("when request body is of wrong format", () => {
+      const requestBody = {
+        inc_votes: "apple",
+      };
+
+      return request(app)
+        .patch("/api/articles/1")
+        .send(requestBody)
+        .expect(400)
+        .then(({ body: { message } }) => {
+          expect(message).toBe("Bad request: request body of invalid format");
+        });
+    });
+  });
+  test("404: responds with 'Article by that ID not found", () => {
+    const requestBody = {
+      inc_votes: 50,
+    };
+
+    return request(app)
+      .patch("/api/articles/2342394")
+      .send(requestBody)
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Article by that ID not found");
       });
   });
 });
