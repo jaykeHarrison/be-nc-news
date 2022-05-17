@@ -20,7 +20,7 @@ exports.patchArticleById = (req, res, next) => {
 
   updateArticleById(article_id, inc_votes)
     .then((updatedArticle) => {
-      res.status(201).send({ updatedArticle });
+      res.status(200).send({ updatedArticle });
     })
     .catch(next);
 };
