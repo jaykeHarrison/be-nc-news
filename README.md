@@ -71,7 +71,8 @@ Responds with JSON-encoded object with with property **_*article*_**, whose valu
     "author": "butter_bridge",
     "body": "I find this existence challenging",
     "created_at": "2020-07-09T20:11:00.000Z",
-    "votes": 100
+    "votes": 100,
+    "comment_count": 11
   }
 }
 ```
