@@ -17,7 +17,8 @@ These will automatically be ignored in the .gitignore file.
 
 1. [GET /api/topics](#1-get-apitopics)
 2. [GET /api/articles/:article_id](#2-get-apiarticlesarticleid)
-3. [PATCH /api/articles/:article_id](#2-get-apiarticlesarticleid)
+3. [PATCH /api/articles/:article_id](#3-patch-apiarticlesarticleid)
+4. [GET /api/users](#4-get-apiusers)
 
 ## 1. GET /api/topics
 
@@ -31,7 +32,7 @@ Responds with an array of topic objects with slug and description properties
 
 ### Response body
 
-Responds with JSON-encoded object with with property topics. Example:
+Responds with JSON-encoded object with with property **_topics_**, whose value is an array of topic objects. Example:
 
 ```
 {
@@ -116,5 +117,30 @@ Responds with JSON-encoded object with with property **_updatedArticle_**, whose
     "topic": "mitch",
     "votes": 150
   }
+}
+```
+
+## 4. GET /api/users
+
+### Description
+
+Responds with an array of username objects
+
+### Status
+
+200 - OK
+
+### Response body
+
+Responds with JSON-encoded object with with property **_users_**, whose value is an array of username objects. Example:
+
+```
+{
+  "users": [
+    { "username": "butter_bridge" },
+    { "username": "icellusedkars" },
+    { "username": "rogersop" },
+    { "username": "lurker" }
+  ]
 }
 ```
