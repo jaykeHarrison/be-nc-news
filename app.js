@@ -3,6 +3,7 @@ const {
   getArticleById,
   patchArticleById,
   getArticles,
+  getCommentsByArticleId,
 } = require("./controllers/articles.controller.js");
 const { getUsers } = require("./controllers/users.controller.js");
 const express = require("express");
@@ -14,6 +15,7 @@ app.get("/api/topics", getTopics);
 
 app.get("/api/articles", getArticles);
 app.get("/api/articles/:article_id", getArticleById);
+app.get("/api/articles/:article_id/comments", getCommentsByArticleId);
 app.patch("/api/articles/:article_id", patchArticleById);
 
 app.get("/api/users", getUsers);
@@ -40,7 +42,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  // console.log(err);
   res.status(500).send({ message: "Internal server error" });
 });
 

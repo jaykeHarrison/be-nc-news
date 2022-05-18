@@ -18,8 +18,9 @@ These will automatically be ignored in the .gitignore file.
 1. [GET /api/topics](#1-get-apitopics)
 2. [GET /api/articles](#2-get-apiarticles)
 3. [GET /api/articles/:article_id](#3-get-apiarticlesarticleid)
-4. [PATCH /api/articles/:article_id](#4-patch-apiarticlesarticleid)
-5. [GET /api/users](#5-get-apiusers)
+4. [GET /api/articles/:article_id/comments](#4-get-apiarticlesarticleidcomments)
+5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticleid)
+6. [GET /api/users](#6-get-apiusers)
 
 ## 1. GET /api/topics
 
@@ -110,7 +111,51 @@ Responds with JSON-encoded object with with property **_*article*_**, whose valu
 }
 ```
 
-## 4. PATCH /api/articles/:article_id
+## 4. GET /api/articles/:article_id/comments
+
+### Desccription
+
+Responds with an array of comment objects for the specified article.
+
+_note:_ if an article has no comments, the array will be empty
+
+### Status
+
+200 - OK
+
+### Parameters
+
+**:article_id** _Integer_: ID of the required article
+
+### Response body
+
+Responds with JSON-encoded object with with property **_comments_**, whose value is an array of comment objects for the specified article. Example:
+
+```
+{
+  "comments": [
+    {
+      "comment_id": 10,
+      "body": "git push origin master",
+      "article_id": 3,
+      "author": "icellusedkars",
+      "votes": 0,
+      "created_at": "2020-06-20T07:24:00.000Z"
+    },
+    {
+      "comment_id": 11,
+      "body": "Ambidextrous marsupial",
+      "article_id": 3,
+      "author": "icellusedkars",
+      "votes": 0,
+      "created_at": "2020-09-19T23:10:00.000Z"
+    }
+  ]
+}
+
+```
+
+## 5. PATCH /api/articles/:article_id
 
 ### Description
 
@@ -154,7 +199,7 @@ Responds with JSON-encoded object with with property **_updatedArticle_**, whose
 }
 ```
 
-## 5. GET /api/users
+## 6. GET /api/users
 
 ### Description
 
