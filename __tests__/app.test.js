@@ -263,6 +263,7 @@ describe("POST /api/articles/:article_id/comments", () => {
       .then(({ body: { addedComment } }) => {
         expect(addedComment).toEqual(
           expect.objectContaining({
+            comment_id: 19,
             body: "what a wonderful test",
             votes: 0,
             author: "rogersop",
