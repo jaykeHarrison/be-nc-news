@@ -80,15 +80,14 @@ exports.insertCommentByArticleId = (articleId, username, body) => {
       message: "Bad request: request body invalid",
     });
   }
-  const createdAt = new Date();
 
   return db
     .query(
       `
-      INSERT INTO comments (body, votes, author, article_id, created_at)
-      VALUES ($1, 0, $2, $3, $4)
+      INSERT INTO comments (body, votes, author, article_id)
+      VALUES ($1, 0, $2, $3)
       RETURNING *;`,
-      [body, username, articleId, createdAt]
+      [body, username, articleId]
     )
     .then(({ rows }) => {
       return rows[0];
