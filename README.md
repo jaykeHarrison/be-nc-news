@@ -20,7 +20,7 @@ These will automatically be ignored in the .gitignore file.
 3. [GET /api/articles/:article_id](#3-get-apiarticlesarticleid)
 4. [GET /api/articles/:article_id/comments](#4-get-apiarticlesarticleidcomments)
 5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticleid)
-6. [POST /api/articles/:article_id/comments](#6-POST-apiarticlesarticleidcomments)
+6. [POST /api/articles/:article_id/comments](#6-post-apiarticlesarticleidcomments)
 7. [GET /api/users](#7-get-apiusers)
 
 ## 1. GET /api/topics
