@@ -81,7 +81,6 @@ describe("GET /api/articles", () => {
         .get("/api/articles")
         .expect(200)
         .then(({ body: { articles } }) => {
-          console.log(articles);
           expect(articles).toBeSortedBy("created_at", { descending: true });
         });
     });
@@ -128,6 +127,52 @@ describe("GET /api/articles/:article_id", () => {
       .expect(400)
       .then((response) => {
         expect(response.body.message).toBe("Bad request");
+      });
+  });
+});
+describe("GET /api/articles/:article_id/comments", () => {
+  test("200: responds with array of comment objects", () => {
+    return request(app)
+      .get("/api/articles/3/comments")
+      .expect(200)
+      .then(({ body: { comments } }) => {
+        console.log(comments);
+        expect(comments).toHaveLength(2);
+        comments.forEach((comment) => {
+          expect(comment).toEqual(
+            expect.objectContaining({
+              comment_id: expect.any(Number),
+              votes: expect.any(Number),
+              created_at: expect.any(String),
+              author: expect.any(String),
+              body: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+  test("200: responds with empty array when article_id is existing article with no comments", () => {
+    return request(app)
+      .get("/api/articles/2/comments")
+      .expect(200)
+      .then(({ body: { comments } }) => {
+        expect(comments).toEqual([]);
+      });
+  });
+  test("400: responds with 'Bad request' when passed invalid article_id param", () => {
+    return request(app)
+      .get("/api/articles/three/comments")
+      .expect(400)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Bad request");
+      });
+  });
+  test("404: responds with 'Article by that ID not found' when passed ID of valid format but doesn't exist", () => {
+    return request(app)
+      .get("/api/articles/12931923/comments")
+      .expect(404)
+      .then(({ body: { message } }) => {
+        expect(message).toBe("Article by that ID not found");
       });
   });
 });

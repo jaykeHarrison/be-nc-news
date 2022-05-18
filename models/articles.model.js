@@ -35,6 +35,14 @@ exports.fetchArticleById = (articleId) => {
     });
 };
 
+exports.fetchCommentsByArticleId = (articleId) => {
+  return db
+    .query(`SELECT * FROM comments WHERE article_id = $1`, [articleId])
+    .then(({ rows }) => {
+      return rows;
+    });
+};
+
 exports.updateArticleById = (articleId, increaseVotesBy) => {
   if (!increaseVotesBy || typeof increaseVotesBy !== "number") {
     return Promise.reject({
