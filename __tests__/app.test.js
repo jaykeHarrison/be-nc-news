@@ -136,7 +136,6 @@ describe("GET /api/articles/:article_id/comments", () => {
       .get("/api/articles/3/comments")
       .expect(200)
       .then(({ body: { comments } }) => {
-        console.log(comments);
         expect(comments).toHaveLength(2);
         comments.forEach((comment) => {
           expect(comment).toEqual(
