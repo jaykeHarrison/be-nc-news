@@ -20,7 +20,8 @@ These will automatically be ignored in the .gitignore file.
 3. [GET /api/articles/:article_id](#3-get-apiarticlesarticleid)
 4. [GET /api/articles/:article_id/comments](#4-get-apiarticlesarticleidcomments)
 5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticleid)
-6. [GET /api/users](#6-get-apiusers)
+6. [POST /api/articles/:article_id/comments](#6-POST-apiarticlesarticleidcomments)
+7. [GET /api/users](#7-get-apiusers)
 
 ## 1. GET /api/topics
 
@@ -199,7 +200,53 @@ Responds with JSON-encoded object with with property **_updatedArticle_**, whose
 }
 ```
 
-## 6. GET /api/users
+## 6. POST /api/articles/:article_id/comments
+
+### Description
+
+Adds comment to specified article. Will respond with the newly created comment object.
+
+### Status
+
+201 - Created
+
+### Parameters
+
+**:article_id** _Integer_: ID of the required article
+
+### Request body
+
+The request body should be a JSON object with a keys **_username_** and **_body_** and values of an existing username and the body of the comment, respectively.
+
+Example:
+
+```
+{
+  "username": "rogersop",
+  "body": "what a wonderful test"
+}
+```
+
+### Response body
+
+Responds with JSON-encoded object with with property **_addedComment_**, whose value is the newly created comment object.
+
+Example:
+
+```
+{
+  "addedComment": {
+    "comment_id": 19,
+    "body": "what a wonderful test",
+    "article_id": 2,
+    "author": "rogersop",
+    "votes": 0,
+    "created_at": "2022-05-18T11:46:52.339Z"
+  }
+}
+```
+
+## 7. GET /api/users
 
 ### Description
 
