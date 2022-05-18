@@ -1,3 +1,4 @@
+const { use } = require("../app.js");
 const db = require("../db/connection.js");
 
 exports.fetchArticles = () => {
@@ -64,5 +65,31 @@ exports.updateArticleById = (articleId, increaseVotesBy) => {
         });
       }
       return response.rows[0];
+    });
+};
+
+exports.insertCommentByArticleId = (articleId, username, body) => {
+  if (
+    username === undefined ||
+    body === undefined ||
+    typeof body !== "string" ||
+    typeof username !== "string"
+  ) {
+    return Promise.reject({
+      status: 400,
+      message: "Bad request: request body invalid",
+    });
+  }
+
+  return db
+    .query(
+      `
+      INSERT INTO comments (body, votes, author, article_id)
+      VALUES ($1, 0, $2, $3)
+      RETURNING *;`,
+      [body, username, articleId]
+    )
+    .then(({ rows }) => {
+      return rows[0];
     });
 };
