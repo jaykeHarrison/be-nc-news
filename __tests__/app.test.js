@@ -228,7 +228,7 @@ describe("GET /api/articles", () => {
       });
     });
     describe("article objects are filtered by valid topic", () => {
-      test("filtered by mitch", () => {
+      test("filtered by mitch, which has multiple articles", () => {
         return request(app)
           .get("/api/articles?topic=mitch")
           .expect(200)
@@ -241,7 +241,7 @@ describe("GET /api/articles", () => {
             });
           });
       });
-      test("filtered by cats", () => {
+      test("filtered by cats, which has only 1 article", () => {
         return request(app)
           .get("/api/articles?topic=cats")
           .expect(200)
@@ -261,7 +261,7 @@ describe("GET /api/articles", () => {
             );
           });
       });
-      test("filtered by paper", () => {
+      test("filtered by paper, which has no articles", () => {
         return request(app)
           .get("/api/articles?topic=paper")
           .expect(200)
