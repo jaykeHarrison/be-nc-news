@@ -57,6 +57,14 @@ Responds with an array of article objects, default sorted by created_at in desce
 
 200 - OK
 
+### Query Params
+
+- **_sort_by_** - String - sorts the array of article objects by a valid property
+
+- **order** - String - [ASC / DESC] - orders the article objects in either ascending or descending order
+
+- **_topic_** - String - filters the article objects by a valid topic
+
 ### Response body
 
 Responds with JSON-encoded object with with property **_*articles*_**, whose value is the requested articles objects. Example:
