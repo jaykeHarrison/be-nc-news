@@ -22,6 +22,7 @@ These will automatically be ignored in the .gitignore file.
 5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticleid)
 6. [POST /api/articles/:article_id/comments](#6-post-apiarticlesarticleidcomments)
 7. [GET /api/users](#7-get-apiusers)
+8. [DELETE /api/comments/:comment_id](#8-delete-apicommentscommentid)
 
 ## 1. GET /api/topics
 
@@ -278,3 +279,17 @@ Responds with JSON-encoded object with with property **_users_**, whose value is
   ]
 }
 ```
+
+## 8. DELETE /api/comments/:comment_id
+
+### Description
+
+Deletes the comment by specified comment id
+
+### Status
+
+204 - No content
+
+### Parameters
+
+**comment_id** - _integer_ - the id number of the comment to be deleted
