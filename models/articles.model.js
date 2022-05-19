@@ -22,16 +22,16 @@ exports.fetchArticles = (topic, sortBy = "created_at", order = "DESC") => {
       GROUP BY articles.article_id`;
     } else {
       return Promise.reject({
-        status: 400,
-        message: "Bad request: invalid topic",
+        status: 404,
+        message: "Topic not found: invalid topic query",
       });
     }
     if (sortByGreenList.includes(sortBy)) {
       queryString += ` ORDER BY ${sortBy}`;
     } else {
       return Promise.reject({
-        status: 400,
-        message: "Bad request: invalid sort_by",
+        status: 404,
+        message: "Category not found: invalid sort_by query",
       });
     }
 
@@ -40,7 +40,7 @@ exports.fetchArticles = (topic, sortBy = "created_at", order = "DESC") => {
     } else {
       return Promise.reject({
         status: 400,
-        message: "Bad request: invalid order",
+        message: "Bad request: invalid order query",
       });
     }
 

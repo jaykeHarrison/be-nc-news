@@ -270,28 +270,28 @@ describe("GET /api/articles", () => {
           });
       });
     });
-    test("400: responds with 'Bad request: invalid sort_by'", () => {
+    test("404: responds with 'Category not found: invalid sort_by'", () => {
       return request(app)
         .get("/api/articles?sort_by=body")
-        .expect(400)
+        .expect(404)
         .then(({ body: { message } }) => {
-          expect(message).toBe("Bad request: invalid sort_by");
+          expect(message).toBe("Category not found: invalid sort_by query");
         });
     });
-    test("400: responds with 'Bad request: invalid order'", () => {
+    test("400: responds with 'Bad request: invalid order query'", () => {
       return request(app)
         .get("/api/articles?sort_by=title&order=toptobottom")
         .expect(400)
         .then(({ body: { message } }) => {
-          expect(message).toBe("Bad request: invalid order");
+          expect(message).toBe("Bad request: invalid order query");
         });
     });
-    test("400: responds with 'Bad requestL invalid topic'", () => {
+    test("404: responds with 'Topic not found: invalid topic query'", () => {
       return request(app)
         .get("/api/articles?sort_by=title&order=ASC&topic=meech")
-        .expect(400)
+        .expect(404)
         .then(({ body: { message } }) => {
-          expect(message).toBe("Bad request: invalid topic");
+          expect(message).toBe("Topic not found: invalid topic query");
         });
     });
   });
