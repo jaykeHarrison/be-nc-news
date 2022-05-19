@@ -3,10 +3,23 @@ const app = require("../app");
 const db = require("../db/connection.js");
 const seed = require("../db/seeds/seed");
 const testData = require("../db/data/test-data/index.js");
+const apiDocs = require("../endpoints.json");
+
 require("jest-sorted");
 
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
+
+describe("GET /api", () => {
+  test("returns endpoint documentation as JSON object", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toEqual(apiDocs);
+      });
+  });
+});
 
 describe("GET /api/topics", () => {
   test("200: responds with an array of topic objects", () => {
@@ -545,7 +558,7 @@ describe("POST /api/articles/:article_id/comments", () => {
   });
 });
 
-describe.only("DELETE /api/comments/:comment_id", () => {
+describe("DELETE /api/comments/:comment_id", () => {
   test("204: deletes the comment", () => {
     return request(app).delete("/api/comments/12").expect(204);
   });

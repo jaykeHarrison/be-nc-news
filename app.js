@@ -8,10 +8,13 @@ const {
 } = require("./controllers/articles.controller.js");
 const { getUsers } = require("./controllers/users.controller.js");
 const { deleteCommentById } = require("./controllers/comments.controller.js");
+const { getApiDocs } = require("./controllers/api.controller.js");
 const express = require("express");
 const app = express();
 
 app.use(express.json());
+
+app.get("/api", getApiDocs);
 
 app.get("/api/topics", getTopics);
 
