@@ -1,20 +1,54 @@
-const { use } = require("../app.js");
 const db = require("../db/connection.js");
+const { fetchTopics } = require("./topics.model.js");
 
-exports.fetchArticles = () => {
-  return db
-    .query(
-      `SELECT articles.*, COUNT(comments.article_id)::INT AS comment_count
+exports.fetchArticles = (topic, sortBy = "created_at", order = "DESC") => {
+  const sortByGreenList = ["title", "topic", "author", "created_at", "votes"];
+  const orderGreenList = ["ASC", "DESC"];
+  const topicGreenList = fetchTopics();
+
+  order = order.toUpperCase();
+
+  let queryString = `SELECT articles.*, COUNT(comments.article_id)::INT AS comment_count
   FROM articles
-  LEFT JOIN comments ON articles.article_id = comments.article_id
-  GROUP BY articles.article_id
-  ORDER BY articles.created_at DESC;`
-    )
-    .then(({ rows }) => {
+  LEFT JOIN comments ON articles.article_id = comments.article_id`;
+
+  return Promise.all([topicGreenList]).then(([fetchedTopics]) => {
+    const validTopics = fetchedTopics.map((topic) => topic.slug);
+
+    if (topic === undefined) {
+      queryString += ` GROUP BY articles.article_id`;
+    } else if (validTopics.includes(topic)) {
+      queryString += ` WHERE articles.topic = '${topic}'
+      GROUP BY articles.article_id`;
+    } else {
+      return Promise.reject({
+        status: 400,
+        message: "Bad request: invalid topic",
+      });
+    }
+    if (sortByGreenList.includes(sortBy)) {
+      queryString += ` ORDER BY ${sortBy}`;
+    } else {
+      return Promise.reject({
+        status: 400,
+        message: "Bad request: invalid sort_by",
+      });
+    }
+
+    if (orderGreenList.includes(order)) {
+      queryString += ` ${order}`;
+    } else {
+      return Promise.reject({
+        status: 400,
+        message: "Bad request: invalid order",
+      });
+    }
+
+    return db.query(queryString).then(({ rows }) => {
       return rows;
     });
+  });
 };
-
 exports.fetchArticleById = (articleId) => {
   return db
     .query(
