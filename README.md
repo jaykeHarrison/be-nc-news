@@ -50,7 +50,7 @@ To install the both app and developer dependencies, in the root directory put th
 $ npm install
 ```
 
-### Setup Dev & Test Enviroments
+### Setup Dev & Test Environments
 
 You will need to create two .env files to determine when we are using the development or test databases. You can use the following commands in the root directory:
 
