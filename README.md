@@ -1,15 +1,111 @@
 # Northcoders News API
 
-## Add .env\* files
+## Project Overview
+
+A news API built user `Node.js`, `Express.js` and `PostgreSQL` for the relational database.
+
+All available endpoints can be found in the `endpoints.json` file, by following the link to the hosted version, and at the bottom of this readme.
+
+This will be used as the backend for an upcoming front-end application.
+
+## Hosted Version
+
+You can see a live version of this app, hosted with `Heroku`:
+
+https://jaykeharrison-nc-news.herokuapp.com/api
+
+## Setup Instructions
+
+### Installation Requirements
+
+- **Node.js**: v17.8.0 or later
+- **PostgreSQL**: v 12.10 or later
+
+### Cloning the repository:
+
+Create a directory to clone the repository to. In your terminal:
+
+```
+$ mkdir <new directory name>
+```
+
+Change directory to the one you just created:
+
+```
+$ mkdir <new directory name>
+```
+
+Then clone the repository:
+
+```
+$ git clone https://github.com/jaykeHarrison/be-nc-news.git
+$ cd nc-news
+```
+
+### Install Dependencies
+
+To install the both app and developer dependencies, in the root directory put the following command in your terminal:
+
+```
+$ npm install
+```
+
+### Setup Dev & Test Environments
 
 You will need to create two .env files to determine when we are using the development or test databases. You can use the following commands in the root directory:
 
 ```
-echo 'PGDATABASE=nc_news' >> .env.development
-echo 'PGDATABASE=nc_news_test' >> .env.test
+$ echo 'PGDATABASE=nc_news' >> .env.development
+$ echo 'PGDATABASE=nc_news_test' >> .env.test
 ```
 
 These will automatically be ignored in the .gitignore file.
+
+### Database setup and seeding
+
+Run the following scripts in the root directory to setup both your development and test databases
+
+Setup:
+
+```
+$ npm run setup-dbs
+```
+
+Seeding:
+
+```
+$ npm run seed
+```
+
+## Testing
+
+To test this application, the `jest` framework is used. The tests can be run with the following script:
+
+```
+$ npm test
+```
+
+## Dependencies
+
+These are all the dependencies required for this web app.
+
+### Application Dependencies
+
+| Dependency | Version         | Description                    | Docs                                                              |
+| ---------- | --------------- | ------------------------------ | ----------------------------------------------------------------- |
+| npm        | 17.8.0 or later | Node.js / Node Package Manager | https://docs.npmjs.com/downloading-and-installing-node-js-and-npm |
+| dotenv     | 16.0.1 or later | Loads environment variables    | https://www.npmjs.com/package/dotenv                              |
+| pg         | 8.7.3 or later  | PostgreSQL client for Node.js  | https://www.npmjs.com/package/pg                                  |
+| express    | 4.18.1 or later | Web application framework      | https://www.npmjs.com/package/express                             |
+
+### Developer-only Dependencies
+
+| Dependency  | Version          | Description                                        | Docs                                           |
+| ----------- | ---------------- | -------------------------------------------------- | ---------------------------------------------- |
+| jest        | v27.5.1 or later | JavaScript testing framework                       | https://jestjs.io/docs/getting-started         |
+| jest-sorted | v1.0.14 or later | Test sort and order of arrays & objects            | https://github.com/P-Copley/jest-sorted#readme |
+| supertest   | v6.2.3 or later  | Node.js library for testing HTTP requests          | https://www.npmjs.com/package/supertest        |
+| pg-format   | v1.0.4 or later  | Formats PSQL queries to protect form SQL injection | https://www.npmjs.com/package/pg-format        |
 
 # REST APIs
 
