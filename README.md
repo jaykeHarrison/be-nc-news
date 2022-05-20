@@ -21,7 +21,7 @@ https://jaykeharrison-nc-news.herokuapp.com/api
 - **Node.js**: v17.8.0 or later
 - **PostgreSQL**: v 12.10 or later
 
-### Cloning the repositry:
+### Cloning the repository:
 
 Create a directory to clone the repository to. In your terminal:
 
