@@ -32,7 +32,7 @@ $ mkdir <new directory name>
 Change directory to the one you just created:
 
 ```
-$ mkdir <new directory name>
+$ cd <new directory name>
 ```
 
 Then clone the repository:
