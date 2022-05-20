@@ -42,6 +42,14 @@ $ git clone https://github.com/jaykeHarrison/be-nc-news.git
 $ cd nc-news
 ```
 
+### Install Dependencies
+
+To install the both app and developer dependencies, in the root directory put the following command in your terminal:
+
+```
+$ npm install
+```
+
 ### Setup Dev & Test Enviroments
 
 You will need to create two .env files to determine when we are using the development or test databases. You can use the following commands in the root directory:
