@@ -39,7 +39,6 @@ Then clone the repository:
 
 ```
 $ git clone https://github.com/jaykeHarrison/be-nc-news.git
-$ cd nc-news
 ```
 
 ### Install Dependencies
