@@ -112,12 +112,12 @@ These are all the dependencies required for this web app.
 
 1. [GET /api/topics](#1-get-apitopics)
 2. [GET /api/articles](#2-get-apiarticles)
-3. [GET /api/articles/:article_id](#3-get-apiarticlesarticleid)
-4. [GET /api/articles/:article_id/comments](#4-get-apiarticlesarticleidcomments)
-5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticleid)
-6. [POST /api/articles/:article_id/comments](#6-post-apiarticlesarticleidcomments)
+3. [GET /api/articles/:article_id](#3-get-apiarticlesarticle_id)
+4. [GET /api/articles/:article_id/comments](#4-get-apiarticlesarticle_idcomments)
+5. [PATCH /api/articles/:article_id](#5-patch-apiarticlesarticle_id)
+6. [POST /api/articles/:article_id/comments](#6-post-apiarticlesarticle_idcomments)
 7. [GET /api/users](#7-get-apiusers)
-8. [DELETE /api/comments/:comment_id](#8-delete-apicommentscommentid)
+8. [DELETE /api/comments/:comment_id](#8-delete-apicommentscomment_id)
 
 ## 1. GET /api/topics
 
